@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> HTML CSS REVIEW </title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .red-button {
+            height: 100px;
+            width: 100px;
+            background-color: black;
+            border: 2px solid white;
+            border-radius: 50%;
+            margin: 10px;
+
+        }
+
+        .img {
+            height: 50px;
+
+        }
+
+        .reset-button {}
+
+        .js-result{ 
+            color: white; 
+            font-size: 30px;
+            font-weight: bold;
+
+        }
+    </style>
+</head>
+
+<body>
+    <p style="
+            font-size: 50px;
+            font-weight: bold;
+            ">
+        Rock Paper Scissors game
+    </p>
+    
+        <button onclick="
+        playGame('Rock'); 
+            " class="red-button"> <img class="img" src="Rock Paper Scissors_files/rock-emoji.png">
+        </button>
+
+        <button onclick="
+        playGame('Paper');
+        " class="red-button"> <img class="img" src="Rock Paper Scissors_files/paper-emoji.png">
+        </button>
+        <button onclick="
+        playGame('Scissors');
+        " class="red-button"><img class="img" src="Rock Paper Scissors_files/scissors-emoji.png">
+        </button>
+
+        <p class="js-result"></p>
+        <p class="notification">
+            You <img class="img" src="Rock Paper Scissors_files/scissors-emoji.png">  <img class="img" src="Rock Paper Scissors_files/scissors-emoji.png"> Computer 
+        </p>
+        <p class="storage"></p>
+
+        <button onclick="
+    resetScore(); 
+        " class="reset-button" style="
+        font-size: 15px;
+        padding: 5px 10px;  
+    "> Reset button
+
+        </button>
+
+    </div>
+
+    <script src="game.js">
+        const resultPrint = document.querySelector('.js-result');
+        const score = JSON.parse(localStorage.getItem('score')) || {
+            ties: 0,
+            wins: 0,
+            losses: 0
+        };
+        function resetScore() {
+            score.wins = 0;
+            score.losses = 0;
+            score.ties = 0;
+            resultPrint.innerHTML = 'Your scores are reseted';
+            localStorage.removeItem('score');
+            document.querySelector('.storage').innerHTML = `wins: ${score.wins}, lossses: ${score.losses}, ties: ${score.ties}`
+        }
+        function computerMove() {
+            computerchoice = '';
+            const temp = Math.random();
+            if (temp >= 0 && temp < 1 / 3)
+                computerchoice = 'Paper';
+            else if (temp >= 1 / 3 && temp < 2 / 3)
+                computerchoice = 'Rock';
+            else if (temp >= 2 / 3)
+                computerchoice = 'Scissors';
+            return computerchoice;
+        }
+
+        function playGame(userChoice) {
+            const ComputerChoice = computerMove();
+            let result = '';
+            if (userChoice === 'Rock') {
+                if (ComputerChoice === 'Scissors')
+                    result = 'win';
+                if (ComputerChoice === 'Rock')
+                    result = 'tie';
+                if (ComputerChoice === 'Paper')
+                    result = 'lose';
+            }
+
+            if (userChoice === 'Paper') {
+                if (ComputerChoice === 'Scissors')
+                    result = 'lose';
+                if (ComputerChoice === 'Rock')
+                    result = 'win';
+                if (ComputerChoice === 'Paper')
+                    result = 'tie';
+            }
+
+            if (userChoice === 'Scissors') {
+                if (ComputerChoice === 'Scissors')
+                    result = 'tie';
+                if (ComputerChoice === 'Rock')
+                    result = 'lose'
+                if (ComputerChoice === 'Paper')
+                    result = 'win';
+            }
+            if (result === 'win') {
+                score.wins += 1;
+            }
+            else if (result === 'lose') {
+                score.losses += 1;
+            } else
+                score.ties += 1;
+                localStorage.setItem('score', JSON.stringify(score)); 
+                document.querySelector('.js-result').innerHTML = result;
+                document.querySelector('.storage').innerHTML = `wins: ${score.wins}, lossses: ${score.losses}, ties: ${score.ties}`
+                document.querySelector('.notification').innerHTML = `You <img class="img" src="Rock Paper Scissors_files/${userChoice}-emoji.png">  <img class="img" src="Rock Paper Scissors_files/${computerchoice}-emoji.png"> Computer 
+        </p>`
+          
+
+        }
+
+
+
+
+
+    </script>
+</body>
+
+</html>

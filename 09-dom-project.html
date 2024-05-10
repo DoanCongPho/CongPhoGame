@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title> DOM PROJECT </title>
+</head>
+
+<body>
+    <p>Youtube Subcribe Button</p>
+    <button onclick="
+            Subcribe(); 
+    " class="js-subcribe-button">
+        Subcribe
+    </button>
+    <p></p>
+    <input placeholder="Cost of order" class="Cost-input" onkeydown="
+    handleCostKeyDown(event);
+    ">
+    <button onclick="
+        calculate();
+    " class="Calculate-button">
+        Calculate
+    </button>
+    <p class="js-cost-showing"></p>
+
+
+</body>
+<script>
+    function handleCostKeyDown(event){ 
+        if(event.key === 'Enter'){ 
+        calculate(); 
+    }
+    }
+    function calculate(){
+        const inputElement = document.querySelector('.Cost-input');
+        cost = Number(inputElement.value); 
+        if(cost < 40){ 
+            cost+=10; 
+        }
+
+        document.querySelector('.js-cost-showing').innerHTML = `${cost}$`;
+
+        
+    }
+    function Subcribe() {
+        const SubcribeButton = document.querySelector('.js-subcribe-button');
+        if (SubcribeButton.innerText === 'Subcribed')
+            SubcribeButton.innerHTML = 'Subcribe';
+        else
+            SubcribeButton.innerHTML = 'Subcribed';
+    } 
+    
+    </script>
+
+</html>
